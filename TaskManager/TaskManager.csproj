@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -107,6 +108,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\1353183085_save.png" />
+    <Resource Include="Resources\Images\add.png" />
+    <Resource Include="Resources\Images\copy.png" />
+    <Resource Include="Resources\Images\cut.png" />
+    <Resource Include="Resources\Images\format_painter.png" />
+    <Resource Include="Resources\Images\go-next.png" />
+    <Resource Include="Resources\Images\go-previous.png" />
+    <Resource Include="Resources\Images\help.png" />
+    <Resource Include="Resources\Images\home.png" />
+    <Resource Include="Resources\Images\options.png" />
+    <Resource Include="Resources\Images\paste.png" />
+    <Resource Include="Resources\Images\personal.png" />
+    <Resource Include="Resources\Images\quit.png" />
+    <Resource Include="Resources\Images\redo.png" />
+    <Resource Include="Resources\Images\save.png" />
+    <Resource Include="Resources\Images\undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

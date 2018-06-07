@@ -9,14 +9,85 @@
         Icon="/Resources/Images/tm_icon.ico" Style="{StaticResource VS2012WindowStyle}">
     <DockPanel>
         <Grid>
-        </Grid>
 
-        <StatusBar
-            DockPanel.Dock="Bottom"  Height="24">
-            <TextBlock Margin="3,0,0,0">Ready</TextBlock>
-            <StatusBarItem HorizontalAlignment="Right">
-                <ResizeGrip Opacity="0.75" />
-            </StatusBarItem>
-        </StatusBar>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="243*" />
+                <RowDefinition Height="25*" />
+            </Grid.RowDefinitions>
+
+            <Ribbon x:Name="RibbonWin"  SelectedIndex="0" Margin="0,-4,0,0">
+
+                <!-- Help Pane, located at the right-hand side -->
+                <Ribbon.HelpPaneContent>
+                    <RibbonButton SmallImageSource="/Resources/Images/help.png" />
+                </Ribbon.HelpPaneContent>
+                <!-- Quick Access Toolbar - located at the upper-left corner -->
+                <Ribbon.QuickAccessToolBar>
+                    <RibbonQuickAccessToolBar>
+                        <RibbonButton x:Name ="Save" SmallImageSource="/Resources/Images/save.png" />
+                        <RibbonSplitButton x:Name ="Undo" SmallImageSource="/Resources/Images/undo.png">
+                            <RibbonSplitMenuItem Header="Undo 1" />
+                            <RibbonSplitMenuItem Header="Undo 2" />
+                            <RibbonSplitMenuItem Header="Undo 3" />
+                        </RibbonSplitButton>
+                        <RibbonSplitButton x:Name="Redo" SmallImageSource="/Resources/Images/redo.png">
+                            <RibbonSplitMenuItem Header="Redo 1" />
+                            <RibbonSplitMenuItem Header="Redo 2" />
+                        </RibbonSplitButton>
+                    </RibbonQuickAccessToolBar>
+                </Ribbon.QuickAccessToolBar>
+                <!-- Application Menu, located at the left-hand side (down arrow) -->
+                <Ribbon.ApplicationMenu>
+                    <RibbonApplicationMenu KeyTip="F">
+                        <RibbonApplicationMenuItem Header="Options" ImageSource="/Resources/Images/options.png" />
+                        <RibbonApplicationMenuItem Header="Exit" ImageSource="/Resources/Images/quit.png" />
+                    </RibbonApplicationMenu>
+                </Ribbon.ApplicationMenu>
+
+                <!-- Ribbon Tab #1: Home -->
+                <RibbonTab Header="Home" KeyTip="H">
+
+                    <!-- Home  group-->
+                    <RibbonGroup x:Name="ClipboardGroup" Header="Home">
+                        <RibbonMenuButton LargeImageSource="/Resources/Images/paste.png" Label="Paste" KeyTip="V">
+                            <RibbonMenuItem ImageSource="/Resources/Images/paste.png" Header="Keep Text Only" KeyTip="T" />
+                            <RibbonMenuItem ImageSource="/Resources/Images/paste.png" Header="Paste Special..." KeyTip="S" />
+                        </RibbonMenuButton>
+                        <RibbonButton SmallImageSource="/Resources/Images/cut.png" Label="Cut" KeyTip="X" />
+                        <RibbonButton SmallImageSource="/Resources/Images/copy.png" Label="Copy" KeyTip="C" />
+                        <RibbonButton SmallImageSource="/Resources/Images/format_painter.png" Label="Format Painter" KeyTip="FP" />
+                    </RibbonGroup>
+
+                    <!-- Employee And Payroll group-->
+                    <RibbonGroup x:Name="Employee" Header="Employee And Payroll">
+                        <RibbonMenuButton LargeImageSource="/Resources/Images/personal.png" Label="Employee" KeyTip="V">
+                            <RibbonMenuItem ImageSource="/Resources/Images/paste.png" Header="Keep Text Only" KeyTip="T" />
+                            <RibbonMenuItem ImageSource="/Resources/Images/paste.png" Header="Paste Special..." KeyTip="S" />
+                        </RibbonMenuButton>
+                        <RibbonButton SmallImageSource="/Resources/Images/save.png" Label="Save" KeyTip="X" />
+                        <RibbonButton SmallImageSource="/Resources/Images/add.png" Label="Add" KeyTip="C" />
+                    </RibbonGroup>
+                </RibbonTab>
+
+                <!-- Ribbon Tab #2: Launch -->
+                <RibbonTab Header="Insert" KeyTip="I">
+                    <!-- Launch/Applications group-->
+                </RibbonTab>
+
+                <RibbonTab Header="PageLayout" KeyTip="L">
+                    <!-- Launch/Applications group-->
+                </RibbonTab>
+            </Ribbon>
+            <DockPanel Name="UIPanel" Grid.Row="1" Grid.RowSpan="2">
+            </DockPanel>
+
+            <StatusBar  Height="24" Margin="0,0,1,2" Grid.Row="1" VerticalAlignment="Bottom" Grid.RowSpan="2">
+                <TextBlock Margin="3,0,0,0">Ready</TextBlock>
+                <StatusBarItem HorizontalAlignment="Right">
+                    <ResizeGrip Opacity="0.75" />
+                </StatusBarItem>
+            </StatusBar>
+        </Grid>
     </DockPanel>
 </Window>
