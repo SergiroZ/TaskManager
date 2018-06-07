@@ -5,7 +5,7 @@
 
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="#FFD6DBE9" />
     <SolidColorBrush x:Key="VS2012WindowBorderBrush" Color="#FF007ACC" />
-    <SolidColorBrush x:Key="VS2012WindowBorderBrushInactive" Color="#999999" />
+    <SolidColorBrush x:Key="VS2012WindowBorderBrushInactive" Color="Black" />
     <SolidColorBrush x:Key="VS2012WindowStatusForeground" Color="#FFFBF0BF" />
     <SolidColorBrush x:Key="VS2012WindowStatusForegroundInactive" Color="#FFFDF3CF" />
 
@@ -67,7 +67,7 @@
                                     Color="black"
                                     Opacity="0.5"
                                     BlurRadius="7"
-                                    ShadowDepth="2"
+                                    ShadowDepth="5"
                                     Direction="315" />
                             </Border.Effect>
                             <DockPanel
@@ -94,7 +94,7 @@
                                             Grid.Column="0"
                                             Source="{Binding Path=Icon, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
                                             HorizontalAlignment="Right"
-                                            Margin="1,-6,0,6"
+                                            Margin="-2,-6,-2,6"
                                             Width="40"
                                             Height="40"
                                             MouseLeftButtonDown="IconMouseLeftButtonDown" />
@@ -105,8 +105,10 @@
                                             VerticalAlignment="Center"
                                             Margin="4,0,0,0"
                                             FontFamily="Segoe UI"
-                                            FontSize="12"
-                                            Opacity="0.66"
+                                            FontStyle="Italic"
+                                            TextDecorations="Underline"
+                                            FontSize="14"
+                                            Opacity="1"
                                             Text="{Binding Path=Title, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
                                         <Button
                                             x:Name="MinButton"
