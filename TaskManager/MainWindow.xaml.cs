@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaskManager.Entities;
+using TaskManager.Repository;
 
 namespace TaskManager
 {
@@ -20,9 +23,32 @@ namespace TaskManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MonitoredProcessesRepository repository;
+
         public MainWindow()
         {
             InitializeComponent();
+            repository = new MonitoredProcessesRepository();
+
+            theBlock.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock1.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+
+            #region test
+
+            //Process proc = Process.GetProcessesByName("devenv")[0];
+            //List<string> vs = new List<string>();
+            //string outList = "";
+
+            //System.Diagnostics.Process[] processes;
+            //processes = System.Diagnostics.Process.GetProcesses();
+            //foreach (System.Diagnostics.Process instance in processes)
+            //{
+            //    vs.Add(instance.ProcessName);
+            //    outList += instance.ProcessName + "\n";
+            //}
+            //MessageBox.Show(outList);
+
+            #endregion test
         }
     }
 }

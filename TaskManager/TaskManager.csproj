@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Entities\MonitoredProcess.cs" />
+    <Compile Include="Repository\MonitoredProcessesRepository.cs" />
     <Compile Include="Styles\CustomizedWindow\VS2012WindowStyle.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -106,9 +108,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\tm_icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Images\1353183085_save.png" />
     <Resource Include="Resources\Images\add.png" />

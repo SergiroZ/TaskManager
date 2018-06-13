@@ -17,6 +17,7 @@
                     <Grid>
                         <Border
                             x:Name="PART_border"
+                            CornerRadius="5"
                             Background="Transparent" />
                         <ContentPresenter />
                     </Grid>
@@ -58,6 +59,7 @@
                             x:Name="PART_Border"
                             Width="Auto"
                             Height="Auto"
+                            CornerRadius="5"
                             Background="#FF293955"
                             BorderBrush="{StaticResource VS2012WindowBorderBrush}"
                             BorderThickness="1"

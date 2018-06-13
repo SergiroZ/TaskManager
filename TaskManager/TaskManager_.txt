@@ -1,0 +1,29 @@
+ID:	id
+
+Процесс: ProcessName
+Память: PagedMemorySize64
+Базовый приоритет: BaisePriority
+Идентификатор сеанса служб: SessionId
+Выгружаемая память: NonpagedSystemMemorySize64
+Макс.объем памяти в файле подкачки: PeakPagedMemorySize64
+Макс.объем виртуальной памяти: PeakVirtualMemorySize64
+Макс.объем физической памяти: PeakWorkingSet64
+Закрытая память: PrivateMemorySize64
+Дата и время запуска: StartTime
+Полное время процессора: TotalProcessorTime
+Пользовательское время процессора: UserProcessorTime
+
+id
+
+ProcessName
+PagedMemorySize64
+BaisePriority
+SessionId
+NonpagedSystemMemorySize64
+PeakPagedMemorySize64
+PeakVirtualMemorySize64
+PeakWorkingSet64
+PrivateMemorySize64
+StartTime
+TotalProcessorTime
+UserProcessorTime

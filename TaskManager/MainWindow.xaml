@@ -4,16 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager"
+        xmlns:entities="clr-namespace:TaskManager.Entities"
+        xmlns:repository="clr-namespace:TaskManager.Repository"
         mc:Ignorable="d"
-        Title="Task Manager" Height="450" Width="800"
-        Icon="/Resources/Images/tm_icon.ico" Style="{StaticResource VS2012WindowStyle}">
+        Title="Task Manager" Height="617" Width="861"
+
+        Icon="/Resources/Images/tm_icon.ico" Style="{StaticResource VS2012WindowStyle}" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <entities:MonitoredProcess x:Key="MonitoredProcessObject" />
+        <repository:MonitoredProcessesRepository x:Key="repository" />
+    </Window.Resources>
+
+    <Window.DataContext>
+        <StaticResource ResourceKey="MonitoredProcessObject" />
+    </Window.DataContext>
+
     <DockPanel>
         <Grid>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="243*" />
-                <RowDefinition Height="25*" />
+                <RowDefinition Height="14*" />
+                <RowDefinition />
             </Grid.RowDefinitions>
 
             <Ribbon x:Name="RibbonWin"  SelectedIndex="0" Margin="0,-4,0,0">
@@ -79,16 +92,48 @@
                     <!-- Launch/Applications group-->
                 </RibbonTab>
             </Ribbon>
-            <DockPanel Name="UIPanel" Grid.Row="1" Margin="0,0,0,1">
-                <!--work area-->
-            </DockPanel>
 
-            <StatusBar  Height="24" Margin="0,0,1,2" Grid.Row="1" VerticalAlignment="Bottom" Grid.RowSpan="2">
-                <TextBlock Margin="3,0,0,0">Ready</TextBlock>
+            <StatusBar  Height="24" Margin="0,0,1,2" Grid.Row="2" VerticalAlignment="Bottom">
+                <TextBlock Margin="3,0,0,0"><Run Text="Ready" /></TextBlock>
                 <StatusBarItem HorizontalAlignment="Right">
                     <ResizeGrip Opacity="0.75" />
                 </StatusBarItem>
             </StatusBar>
+
+            <DataGrid x:Name="dgProcess" HorizontalAlignment="Left"
+                    VerticalAlignment="Top" Width="423" SelectedIndex="0"
+                    IsReadOnly="True" RowBackground="LightBlue"
+                    AlternatingRowBackground="LightGray" AutoGenerateColumns="False"
+                    FontSize="14"
+                    HorizontalGridLinesBrush="#FF2C505B" VerticalGridLinesBrush="#FF2C505B"
+                    ItemsSource="{Binding MonitoredProcesses, Source={StaticResource repository}}" Grid.Row="1" Margin="1,1,0,0">
+                <DataGrid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF535974" Offset="0.9" />
+                        <GradientStop Color="#FFC6CEF1" />
+                    </LinearGradientBrush>
+                </DataGrid.Background>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header=" Id " Width="auto" FontSize="14"
+                                    Binding="{Binding My_Id, StringFormat=N0}" />
+                    <DataGridTextColumn Header=" Процесс " Width="*" FontSize="14"
+                                    Binding="{Binding My_ProcessName}" />
+                    <DataGridTextColumn Header=" Память " Width="*" FontSize="14"
+                                    Binding="{Binding My_PagedMemorySize64}" />
+                </DataGrid.Columns>
+                <!--work area-->
+            </DataGrid>
+            <Canvas Margin="433,11,12,21" Grid.Row="1">
+                <Label Content="Процесс: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="5" />
+                <TextBlock x:Name="theBlock"
+                           Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="72" Canvas.Top="10" />
+
+                <TextBlock x:Name="theBlock1"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="72" Canvas.Top="30" />
+            </Canvas>
         </Grid>
     </DockPanel>
 </Window>
