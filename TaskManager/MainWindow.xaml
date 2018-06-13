@@ -129,10 +129,66 @@
                 <TextBlock x:Name="theBlock"
                            Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="72" Canvas.Top="10" />
-
+                <Label Content="Память: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="25" />
                 <TextBlock x:Name="theBlock1"
                     Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="72" Canvas.Top="30" />
+                <Label Content="Базовый приоритет: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="47" />
+                <TextBlock x:Name="theBlock2"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="152" Canvas.Top="52" />
+                <Label Content="Идентификатор сеанса служб: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="65" />
+                <TextBlock x:Name="theBlock3"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="214" Canvas.Top="70" />
+                <Label Content="Выгружаемая память: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="85" />
+                <TextBlock x:Name="theBlock4"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="159" Canvas.Top="90" />
+                <Label Content="Невыгружаемая память: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="105" />
+                <TextBlock x:Name="theBlock5"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="177" Canvas.Top="110" />
+                <Label Content="Макс. объем памяти в файле подкачки: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="125" />
+                <TextBlock x:Name="theBlock6"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="271" Canvas.Top="130" />
+                <Label Content="Макс. объем виртуальной памяти: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="145" />
+                <TextBlock x:Name="theBlock7"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="234" Canvas.Top="150" />
+                <Label Content="Макс. объем физической памяти: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="165" />
+                <TextBlock x:Name="theBlock8"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="229" Canvas.Top="170" />
+                <Label Content="Закрытая память: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="185" />
+                <TextBlock x:Name="theBlock9"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="128" Canvas.Top="190" />
+                <Label Content="Дата и время запуска: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="205" />
+                <TextBlock x:Name="theBlock10"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="157" Canvas.Top="210" />
+                <Label Content="Полное время процессора: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="225" />
+                <TextBlock x:Name="theBlock11"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="190" Canvas.Top="230" />
+                <Label Content="Пользовательское время процессора: "
+                    Foreground="#FF82C798" FontSize="14" Canvas.Top="245" />
+                <TextBlock x:Name="theBlock12"
+                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           FontSize="14" Canvas.Left="258" Canvas.Top="250" />
             </Canvas>
         </Grid>
     </DockPanel>

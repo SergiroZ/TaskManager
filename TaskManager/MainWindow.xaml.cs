@@ -32,6 +32,17 @@ namespace TaskManager
 
             theBlock.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
             theBlock1.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock2.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock3.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock4.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock5.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock6.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock7.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock8.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock9.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock10.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock11.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            theBlock12.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
 
             #region test
 
