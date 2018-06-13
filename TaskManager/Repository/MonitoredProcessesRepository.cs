@@ -26,6 +26,7 @@ namespace TaskManager.Repository
                              My_BaisePriority = proc.BasePriority,
                              My_Id = proc.Id,
                              My_NonpagedSystemMemorySize64 = proc.NonpagedSystemMemorySize64,
+                             My_PagedSystemMemorySize64 = proc.PagedSystemMemorySize64,
                              My_PagedMemorySize64 = proc.PagedMemorySize64,
                              My_PeakPagedMemorySize64 = proc.PeakPagedMemorySize64,
                              My_PeakVirtualMemorySize64 = proc.PeakVirtualMemorySize64,

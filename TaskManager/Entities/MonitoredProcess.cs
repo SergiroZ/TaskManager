@@ -34,6 +34,14 @@ namespace TaskManager.Entities
             set { my_pagedMemorySize64 = value; OnPropertyChanged(); }
         }
 
+        private long my_pagedSystemMemorySize64;
+
+        public long My_PagedSystemMemorySize64
+        {
+            get { return my_pagedSystemMemorySize64; }
+            set { my_pagedSystemMemorySize64 = value; OnPropertyChanged(); }
+        }
+
         private int my_baisePriority;
 
         public int My_BaisePriority
