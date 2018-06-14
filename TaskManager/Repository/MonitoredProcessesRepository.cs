@@ -18,7 +18,7 @@ namespace TaskManager.Repository
             get {
                 if (monitoredProcesses == null)
                 {
-                    Process proc = Process.GetProcessesByName("devenv")[0];
+                    Process proc = Process.GetProcessesByName("System")[0];
                     monitoredProcesses = new ObservableCollection<MonitoredProcess>()
                     {
                          new MonitoredProcess()

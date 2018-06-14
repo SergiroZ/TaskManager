@@ -108,7 +108,9 @@
   <ItemGroup>
     <Resource Include="Resources\Images\tm_icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\loupe.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\1353183085_save.png" />
     <Resource Include="Resources\Images\add.png" />
@@ -126,6 +128,9 @@
     <Resource Include="Resources\Images\redo.png" />
     <Resource Include="Resources\Images\save.png" />
     <Resource Include="Resources\Images\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\processor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

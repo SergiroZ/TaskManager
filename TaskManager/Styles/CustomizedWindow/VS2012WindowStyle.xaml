@@ -95,10 +95,11 @@
                                             x:Name="Icon"
                                             Grid.Column="0"
                                             Source="{Binding Path=Icon, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                            HorizontalAlignment="Right"
-                                            Margin="-2,-6,-2,6"
+                                            HorizontalAlignment="Stretch"
+                                            Margin="-20,-12,0,0"
                                             Width="40"
                                             Height="40"
+
                                             MouseLeftButtonDown="IconMouseLeftButtonDown" />
                                         <TextBlock
                                             x:Name="Caption"

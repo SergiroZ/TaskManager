@@ -7,13 +7,39 @@
         xmlns:entities="clr-namespace:TaskManager.Entities"
         xmlns:repository="clr-namespace:TaskManager.Repository"
         mc:Ignorable="d"
-        Title="Task Manager" Height="617" Width="861"
-
-        Icon="/Resources/Images/tm_icon.ico" Style="{StaticResource VS2012WindowStyle}" WindowStartupLocation="CenterScreen">
+        Title="Диспетчер процессов" Height="617" Width="861"
+        Icon="/Resources/Images/tm_icon.ico"
+        Style="{StaticResource VS2012WindowStyle}"
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
 
     <Window.Resources>
         <entities:MonitoredProcess x:Key="MonitoredProcessObject" />
         <repository:MonitoredProcessesRepository x:Key="repository" />
+
+        <LinearGradientBrush x:Key="HeaderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#FF6B8E95" Offset="0" />
+            <GradientStop Color="#FF14A7C1" Offset="1" />
+            <GradientStop Color="#FF1E424E" Offset="0.509" />
+            <GradientStop Color="#FF1D4855" Offset="0.542" />
+            <GradientStop Color="#FF1D4855" Offset="0.542" />
+            <GradientStop Color="#FF193A44" Offset="0.526" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="HeaderBorderBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#FF1D1D1D" Offset="0.614" />
+            <GradientStop Color="#FF007F96" Offset="0.853" />
+            <GradientStop Color="#FF0AEAFA" Offset="1" />
+        </LinearGradientBrush>
+        <Style x:Key="HeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource HeaderBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource HeaderBorderBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="30" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
     </Window.Resources>
 
     <Window.DataContext>
@@ -22,6 +48,11 @@
 
     <DockPanel>
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="21" />
+                <ColumnDefinition Width="87*" />
+                <ColumnDefinition Width="325*" />
+            </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -29,71 +60,47 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Ribbon x:Name="RibbonWin"  SelectedIndex="0" Margin="0,-4,0,0">
-
+            <Ribbon x:Name="RibbonWin"  SelectedIndex="0" Margin="0,-4,0,0"
+                    Grid.ColumnSpan="3" Background="#FF667494"
+                    Foreground="#FF090909" BorderBrush="#FF7B84AD">
                 <!-- Help Pane, located at the right-hand side -->
                 <Ribbon.HelpPaneContent>
-                    <RibbonButton SmallImageSource="/Resources/Images/help.png" />
+                    <RibbonButton SmallImageSource="/Resources/Images/help.png"
+                                  Click="RibbonHelpButton_Click" />
                 </Ribbon.HelpPaneContent>
-                <!-- Quick Access Toolbar - located at the upper-left corner -->
-                <Ribbon.QuickAccessToolBar>
-                    <RibbonQuickAccessToolBar>
-                        <RibbonButton x:Name ="Save" SmallImageSource="/Resources/Images/save.png" />
-                        <RibbonSplitButton x:Name ="Undo" SmallImageSource="/Resources/Images/undo.png">
-                            <RibbonSplitMenuItem Header="Undo 1" />
-                            <RibbonSplitMenuItem Header="Undo 2" />
-                            <RibbonSplitMenuItem Header="Undo 3" />
-                        </RibbonSplitButton>
-                        <RibbonSplitButton x:Name="Redo" SmallImageSource="/Resources/Images/redo.png">
-                            <RibbonSplitMenuItem Header="Redo 1" />
-                            <RibbonSplitMenuItem Header="Redo 2" />
-                        </RibbonSplitButton>
-                    </RibbonQuickAccessToolBar>
-                </Ribbon.QuickAccessToolBar>
-                <!-- Application Menu, located at the left-hand side (down arrow) -->
                 <Ribbon.ApplicationMenu>
-                    <RibbonApplicationMenu KeyTip="F">
-                        <RibbonApplicationMenuItem Header="Options" ImageSource="/Resources/Images/options.png" Click="RibbonApplicationMenuItem_Click" />
-                        <RibbonApplicationMenuItem Header="Exit" ImageSource="/Resources/Images/quit.png" />
+                    <RibbonApplicationMenu KeyTip="Q" Width="79">
+                        <RibbonApplicationMenuItem Header="Options" ImageSource="/Resources/Images/options.png" />
+                        <RibbonApplicationMenuItem Header="Exit"
+                                                   ImageSource="/Resources/Images/quit.png"
+                                                   Click="RibbonApplicationMenuItemExit_Click" />
                     </RibbonApplicationMenu>
                 </Ribbon.ApplicationMenu>
 
-                <!-- Ribbon Tab #1: Home -->
-                <RibbonTab Header="Home" KeyTip="H">
-
-                    <!-- Home  group-->
-                    <RibbonGroup x:Name="ClipboardGroup" Header="Home">
-                        <RibbonMenuButton LargeImageSource="/Resources/Images/paste.png" Label="Paste" KeyTip="V">
-                            <RibbonMenuItem ImageSource="/Resources/Images/paste.png" Header="Keep Text Only" KeyTip="T" />
-                            <RibbonMenuItem ImageSource="/Resources/Images/paste.png" Header="Paste Special..." KeyTip="S" />
+                <!-- Ribbon Tab #1: Processes -->
+                <RibbonTab Header="Процессы" KeyTip="H">
+                    <RibbonGroup x:Name="ProcessGroup" Header="Текущие процессы" Foreground="Black">
+                        <RibbonMenuButton LargeImageSource="/Resources/Images/loupe.png" Label="Поиск" KeyTip="F">
+                            <RibbonTextBox  Label="Найти" Text=" " />
                         </RibbonMenuButton>
-                        <RibbonButton SmallImageSource="/Resources/Images/cut.png" Label="Cut" KeyTip="X" />
-                        <RibbonButton SmallImageSource="/Resources/Images/copy.png" Label="Copy" KeyTip="C" />
-                        <RibbonButton SmallImageSource="/Resources/Images/format_painter.png" Label="Format Painter" KeyTip="FP" />
-                    </RibbonGroup>
-
-                    <!-- Employee And Payroll group-->
-                    <RibbonGroup x:Name="Employee" Header="Employee And Payroll">
-                        <RibbonMenuButton LargeImageSource="/Resources/Images/personal.png" Label="Employee" KeyTip="V">
-                            <RibbonMenuItem ImageSource="/Resources/Images/paste.png" Header="Keep Text Only" KeyTip="T" />
-                            <RibbonMenuItem ImageSource="/Resources/Images/paste.png" Header="Paste Special..." KeyTip="S" />
-                        </RibbonMenuButton>
-                        <RibbonButton SmallImageSource="/Resources/Images/save.png" Label="Save" KeyTip="X" />
-                        <RibbonButton SmallImageSource="/Resources/Images/add.png" Label="Add" KeyTip="C" />
+                        <RibbonMenuButton LargeImageSource="/Resources/Images/processor.png" Label="Запустить" KeyTip="S" />
                     </RibbonGroup>
                 </RibbonTab>
 
-                <!-- Ribbon Tab #2: Launch -->
-                <RibbonTab Header="Insert" KeyTip="I">
-                    <!-- Launch/Applications group-->
+                <!-- Ribbon Tab #2: View -->
+                <RibbonTab Header="Вид" KeyTip="V">
+                    <RibbonGroup x:Name="ViewGroup" Header="Виды">
+                    </RibbonGroup>
                 </RibbonTab>
 
-                <RibbonTab Header="PageLayout" KeyTip="L">
-                    <!-- Launch/Applications group-->
+                <!-- Ribbon Tab #3: Help -->
+                <RibbonTab Header="Справка" KeyTip="H" Foreground="#FF070601">
+                    <RibbonGroup x:Name="HelpGroup" Header="Справочник">
+                    </RibbonGroup>
                 </RibbonTab>
             </Ribbon>
 
-            <StatusBar  Height="24" Margin="0,0,1,2" Grid.Row="2" VerticalAlignment="Bottom">
+            <StatusBar  Height="24" Margin="0,0,1,2" Grid.Row="2" VerticalAlignment="Bottom" Grid.ColumnSpan="3">
                 <TextBlock Margin="3,0,0,0"><Run Text="Ready" /></TextBlock>
                 <StatusBarItem HorizontalAlignment="Right">
                     <ResizeGrip Opacity="0.75" />
@@ -104,9 +111,10 @@
                     VerticalAlignment="Top" Width="423" SelectedIndex="0"
                     IsReadOnly="True" RowBackground="LightBlue"
                     AlternatingRowBackground="LightGray" AutoGenerateColumns="False"
-                    FontSize="14"
+                    FontSize="14" ColumnHeaderStyle="{StaticResource HeaderStyle}"
                     HorizontalGridLinesBrush="#FF2C505B" VerticalGridLinesBrush="#FF2C505B"
-                    ItemsSource="{Binding MonitoredProcesses, Source={StaticResource repository}}" Grid.Row="1" Margin="1,1,0,0">
+                    ItemsSource="{Binding Source={StaticResource repository}, Path=MonitoredProcesses}"
+                    Grid.Row="1" Margin="1,1,0,0" Grid.ColumnSpan="3">
                 <DataGrid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF535974" Offset="0.9" />
@@ -115,80 +123,80 @@
                 </DataGrid.Background>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header=" Id " Width="auto" FontSize="14"
-                                    Binding="{Binding My_Id, StringFormat=N0}" />
+                                    Binding="{Binding Path=My_Id, StringFormat=N0}" />
                     <DataGridTextColumn Header=" Процесс " Width="*" FontSize="14"
-                                    Binding="{Binding My_ProcessName}" />
+                                    Binding="{Binding Path=My_ProcessName}" />
                     <DataGridTextColumn Header=" Память " Width="*" FontSize="14"
-                                    Binding="{Binding My_PagedMemorySize64}" />
+                                    Binding="{Binding Path=My_PagedMemorySize64}" />
                 </DataGrid.Columns>
                 <!--work area-->
             </DataGrid>
 
-            <Canvas Margin="433,11,12,21" Grid.Row="1">
+            <Canvas Margin="238,11,12,21" Grid.Row="1" DataContext="{Binding ElementName=dgProcess, Path=SelectedItem}" Grid.Column="2">
                 <Label Content="Процесс: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="5" />
                 <TextBlock x:Name="theBlock"
-                           Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                           Text="{Binding Path= My_ProcessName}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="72" Canvas.Top="10" />
                 <Label Content="Память: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="25" />
                 <TextBlock x:Name="theBlock1"
-                    Text="{Binding My_PagedMemorySize64}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_PagedMemorySize64}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="72" Canvas.Top="30" />
                 <Label Content="Базовый приоритет: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="47" />
                 <TextBlock x:Name="theBlock2"
-                    Text="{Binding My_BaisePriority}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_BaisePriority}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="152" Canvas.Top="52" />
                 <Label Content="Идентификатор сеанса служб: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="65" />
                 <TextBlock x:Name="theBlock3"
-                    Text="{Binding My_SessionId}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_SessionId}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="214" Canvas.Top="70" />
                 <Label Content="Выгружаемая память: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="85" />
                 <TextBlock x:Name="theBlock4"
-                    Text="{Binding My_PagedSystemMemorySize64}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_PagedSystemMemorySize64}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="159" Canvas.Top="90" />
                 <Label Content="Невыгружаемая память: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="105" />
                 <TextBlock x:Name="theBlock5"
-                    Text="{Binding My_NonpagedSystemMemorySize64}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_NonpagedSystemMemorySize64}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="177" Canvas.Top="110" />
                 <Label Content="Макс. объем памяти в файле подкачки: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="125" />
                 <TextBlock x:Name="theBlock6"
-                    Text="{Binding My_PeakPagedMemorySize64}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_PeakPagedMemorySize64}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="271" Canvas.Top="130" />
                 <Label Content="Макс. объем виртуальной памяти: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="145" />
                 <TextBlock x:Name="theBlock7"
-                    Text="{Binding My_PeakVirtualMemorySize64}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_PeakVirtualMemorySize64}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="234" Canvas.Top="150" />
                 <Label Content="Макс. объем физической памяти: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="165" />
                 <TextBlock x:Name="theBlock8"
-                    Text="{Binding My_PeakWorkingSet64}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_PeakWorkingSet64}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="229" Canvas.Top="170" />
                 <Label Content="Закрытая память: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="185" />
                 <TextBlock x:Name="theBlock9"
-                    Text="{Binding My_PrivateMemorySize64}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_PrivateMemorySize64}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="128" Canvas.Top="190" />
                 <Label Content="Дата и время запуска: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="205" />
                 <TextBlock x:Name="theBlock10"
-                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_StartTime}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="157" Canvas.Top="210" />
                 <Label Content="Полное время процессора: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="225" />
                 <TextBlock x:Name="theBlock11"
-                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_TotalProcessorTime}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="190" Canvas.Top="230" />
                 <Label Content="Пользовательское время процессора: "
                     Foreground="#FF82C798" FontSize="14" Canvas.Top="245" />
                 <TextBlock x:Name="theBlock12"
-                    Text="{Binding My_ProcessName}" Foreground="#FFB3E4E2"
+                    Text="{Binding  Path=My_UserProcessorTime}" Foreground="#FFB3E4E2"
                            FontSize="14" Canvas.Left="258" Canvas.Top="250" />
             </Canvas>
         </Grid>

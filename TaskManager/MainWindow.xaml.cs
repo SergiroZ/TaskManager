@@ -29,24 +29,29 @@ namespace TaskManager
         {
             InitializeComponent();
             repository = new MonitoredProcessesRepository();
-
-            theBlock.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
-            theBlock1.Text = repository.MonitoredProcesses.Select(x => x.My_PagedMemorySize64).Single().ToString();
-            theBlock2.Text = repository.MonitoredProcesses.Select(x => x.My_BaisePriority).Single().ToString();
-            theBlock3.Text = repository.MonitoredProcesses.Select(x => x.My_SessionId).Single().ToString();
-            theBlock4.Text = repository.MonitoredProcesses.Select(x => x.My_PagedSystemMemorySize64).Single().ToString();
-            theBlock5.Text = repository.MonitoredProcesses.Select(x => x.My_NonpagedSystemMemorySize64).Single().ToString();
-            theBlock6.Text = repository.MonitoredProcesses.Select(x => x.My_PeakPagedMemorySize64).Single().ToString();
-            theBlock7.Text = repository.MonitoredProcesses.Select(x => x.My_PeakVirtualMemorySize64).Single().ToString();
-            theBlock8.Text = repository.MonitoredProcesses.Select(x => x.My_PeakWorkingSet64).Single().ToString();
-            theBlock9.Text = repository.MonitoredProcesses.Select(x => x.My_PrivateMemorySize64).Single().ToString();
-            theBlock10.Text = repository.MonitoredProcesses.Select(x => x.My_StartTime).Single().ToString();
-            theBlock11.Text = repository.MonitoredProcesses.Select(x => x.My_TotalProcessorTime).Single().ToString();
-            theBlock12.Text = repository.MonitoredProcesses.Select(x => x.My_UserProcessorTime).Single().ToString();
         }
 
-        private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            #region test_load
+
+            //theBlock.Text = repository.MonitoredProcesses.Select(x => x.My_ProcessName).Single();
+            //theBlock1.Text = repository.MonitoredProcesses.Select(x => x.My_PagedMemorySize64).Single().ToString();
+            //theBlock2.Text = repository.MonitoredProcesses.Select(x => x.My_BaisePriority).Single().ToString();
+            //theBlock3.Text = repository.MonitoredProcesses.Select(x => x.My_SessionId).Single().ToString();
+            //theBlock4.Text = repository.MonitoredProcesses.Select(x => x.My_PagedSystemMemorySize64).Single().ToString();
+            //theBlock5.Text = repository.MonitoredProcesses.Select(x => x.My_NonpagedSystemMemorySize64).Single().ToString();
+            //theBlock6.Text = repository.MonitoredProcesses.Select(x => x.My_PeakPagedMemorySize64).Single().ToString();
+            //theBlock7.Text = repository.MonitoredProcesses.Select(x => x.My_PeakVirtualMemorySize64).Single().ToString();
+            //theBlock8.Text = repository.MonitoredProcesses.Select(x => x.My_PeakWorkingSet64).Single().ToString();
+            //theBlock9.Text = repository.MonitoredProcesses.Select(x => x.My_PrivateMemorySize64).Single().ToString();
+            //theBlock10.Text = repository.MonitoredProcesses.Select(x => x.My_StartTime).Single().ToString();
+            //theBlock11.Text = repository.MonitoredProcesses.Select(x => x.My_TotalProcessorTime).Single().ToString();
+            //theBlock12.Text = repository.MonitoredProcesses.Select(x => x.My_UserProcessorTime).Single().ToString();
+
+            #endregion test_load
+
+            repository.MonitoredProcesses.Clear();
             System.Diagnostics.Process[] processes;
             processes = System.Diagnostics.Process.GetProcesses();
             foreach (Process instance in processes)
@@ -77,6 +82,16 @@ namespace TaskManager
                     //throw;
                 }
             }
+        }
+
+        private void RibbonHelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Helper text");
+        }
+
+        private void RibbonApplicationMenuItemExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     };
 }
