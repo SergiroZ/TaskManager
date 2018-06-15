@@ -17,6 +17,7 @@ using TaskManager.Entities;
 using TaskManager.Repository;
 using System.Threading;
 using System.Windows.Threading;
+using System.Data;
 
 namespace TaskManager
 {
@@ -27,6 +28,7 @@ namespace TaskManager
     {
         private MonitoredProcessesRepository repository;
         private DispatcherTimer dt = new DispatcherTimer();
+        public int selectedIndx = 0;
 
         public MainWindow()
         {
@@ -38,6 +40,7 @@ namespace TaskManager
 
             dt.Tick += new EventHandler(dt_Tick);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            dt.Start();
         }
 
         private void dt_Tick(object sender, EventArgs e)
@@ -78,7 +81,7 @@ namespace TaskManager
             this.Close();
         }
 
-        public void Wind_Reload()
+        private void Wind_Reload()
         {
             repository.MonitoredProcesses.Clear();
             System.Diagnostics.Process[] processes;
@@ -87,8 +90,8 @@ namespace TaskManager
             {
                 try
                 {
-                    ((MonitoredProcessesRepository)Resources["repository"]).MonitoredProcesses.Add(
-                        item: new MonitoredProcess()
+                    repository.Add(
+                        (new MonitoredProcess()
                         {
                             My_BaisePriority = instance.BasePriority,
                             My_Id = instance.Id,
@@ -104,12 +107,24 @@ namespace TaskManager
                             My_StartTime = instance.StartTime,
                             My_TotalProcessorTime = instance.TotalProcessorTime,
                             My_UserProcessorTime = instance.UserProcessorTime
-                        });
+                        }
+                        )
+                    );
                 }
                 catch (Exception)
                 {
                     //throw;
                 }
+                dgProcess.ItemsSource = repository.MonitoredProcesses;
+            }
+            dgProcess.SelectedIndex = selectedIndx;
+        }
+
+        private void dgProcess_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgProcess.Items.Count > 0)
+            {
+                selectedIndx = dgProcess.SelectedIndex;
             }
         }
     };

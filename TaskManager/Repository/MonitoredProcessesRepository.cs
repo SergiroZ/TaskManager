@@ -43,5 +43,10 @@ namespace TaskManager.Repository
                 return monitoredProcesses;
             }
         }
+
+        public void Add(MonitoredProcess sender)
+        {
+            monitoredProcesses.Add(sender);
+        }
     }
 }
