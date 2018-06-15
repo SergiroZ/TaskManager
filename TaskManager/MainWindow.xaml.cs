@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskManager.Entities;
 using TaskManager.Repository;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace TaskManager
 {
@@ -24,11 +26,23 @@ namespace TaskManager
     public partial class MainWindow : Window
     {
         private MonitoredProcessesRepository repository;
+        private DispatcherTimer dt = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
             repository = new MonitoredProcessesRepository();
+
+            //TimerCallback tm = new TimerCallback(Wind_Reload);
+            //Timer timer = new Timer(tm, null, 0, 1000);
+
+            dt.Tick += new EventHandler(dt_Tick);
+            dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
+        }
+
+        private void dt_Tick(object sender, EventArgs e)
+        {
+            Wind_Reload();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -51,6 +65,21 @@ namespace TaskManager
 
             #endregion test_load
 
+            Wind_Reload();
+        }
+
+        private void RibbonHelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Helper text");
+        }
+
+        private void RibbonApplicationMenuItemExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        public void Wind_Reload()
+        {
             repository.MonitoredProcesses.Clear();
             System.Diagnostics.Process[] processes;
             processes = System.Diagnostics.Process.GetProcesses();
@@ -82,16 +111,6 @@ namespace TaskManager
                     //throw;
                 }
             }
-        }
-
-        private void RibbonHelpButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Helper text");
-        }
-
-        private void RibbonApplicationMenuItemExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     };
 }
