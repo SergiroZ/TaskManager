@@ -81,7 +81,7 @@
                 <RibbonTab Header="Процессы" KeyTip="H">
                     <RibbonGroup x:Name="ProcessGroup" Header="Текущие процессы" Foreground="Black">
                         <RibbonMenuButton LargeImageSource="/Resources/Images/loupe.png" Label="Поиск" KeyTip="F">
-                            <RibbonTextBox  Label="Найти" Text=" " />
+                            <RibbonTextBox x:Name="rbTextFind" Label="Найти" Text=" " KeyDown="rbTextFind_KeyDown" />
                         </RibbonMenuButton>
                         <RibbonMenuButton LargeImageSource="/Resources/Images/processor.png" Label="Запустить" KeyTip="S" />
                     </RibbonGroup>
@@ -122,7 +122,7 @@
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header=" Id " Width="auto" FontSize="14"
+                    <DataGridTextColumn x:Name="ID" Header=" Id " Width="auto" FontSize="14"
                                     Binding="{Binding Path=My_Id, StringFormat=N0}" />
                     <DataGridTextColumn Header=" Процесс " Width="*" FontSize="14"
                                     Binding="{Binding Path=My_ProcessName}" />

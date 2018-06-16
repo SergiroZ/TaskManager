@@ -35,11 +35,8 @@ namespace TaskManager
             InitializeComponent();
             repository = new MonitoredProcessesRepository();
 
-            //TimerCallback tm = new TimerCallback(Wind_Reload);
-            //Timer timer = new Timer(tm, null, 0, 1000);
-
             dt.Tick += new EventHandler(dt_Tick);
-            dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            dt.Interval = new TimeSpan(0, 0, 0, 1);
             dt.Start();
         }
 
@@ -90,41 +87,45 @@ namespace TaskManager
             {
                 try
                 {
-                    repository.Add(
-                        (new MonitoredProcess()
-                        {
-                            My_BaisePriority = instance.BasePriority,
-                            My_Id = instance.Id,
-                            My_NonpagedSystemMemorySize64 = instance.NonpagedSystemMemorySize64,
-                            My_PagedMemorySize64 = instance.PagedMemorySize64,
-                            My_PagedSystemMemorySize64 = instance.PagedSystemMemorySize64,
-                            My_PeakPagedMemorySize64 = instance.PeakPagedMemorySize64,
-                            My_PeakVirtualMemorySize64 = instance.PeakVirtualMemorySize64,
-                            My_PeakWorkingSet64 = instance.PeakWorkingSet64,
-                            My_PrivateMemorySize64 = instance.PrivateMemorySize64,
-                            My_ProcessName = instance.ProcessName,
-                            My_SessionId = instance.SessionId,
-                            My_StartTime = instance.StartTime,
-                            My_TotalProcessorTime = instance.TotalProcessorTime,
-                            My_UserProcessorTime = instance.UserProcessorTime
-                        }
-                        )
-                    );
+                    repository.Add((new MonitoredProcess()
+                    {
+                        My_BaisePriority = instance.BasePriority,
+                        My_Id = instance.Id,
+                        My_NonpagedSystemMemorySize64 = instance.NonpagedSystemMemorySize64,
+                        My_PagedMemorySize64 = instance.PagedMemorySize64,
+                        My_PagedSystemMemorySize64 = instance.PagedSystemMemorySize64,
+                        My_PeakPagedMemorySize64 = instance.PeakPagedMemorySize64,
+                        My_PeakVirtualMemorySize64 = instance.PeakVirtualMemorySize64,
+                        My_PeakWorkingSet64 = instance.PeakWorkingSet64,
+                        My_PrivateMemorySize64 = instance.PrivateMemorySize64,
+                        My_ProcessName = instance.ProcessName,
+                        My_SessionId = instance.SessionId,
+                        My_StartTime = instance.StartTime,
+                        My_TotalProcessorTime = instance.TotalProcessorTime,
+                        My_UserProcessorTime = instance.UserProcessorTime
+                    }));
                 }
-                catch (Exception)
+                catch
                 {
-                    //throw;
                 }
-                dgProcess.ItemsSource = repository.MonitoredProcesses;
             }
+            dgProcess.ItemsSource = repository.MonitoredProcesses;
             dgProcess.SelectedIndex = selectedIndx;
+            //dgProcess.Focus();
         }
 
         private void dgProcess_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgProcess.Items.Count > 0)
+            if (dgProcess.Items.Count != 0) selectedIndx = dgProcess.SelectedIndex;
+        }
+
+        private void rbTextFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
             {
-                selectedIndx = dgProcess.SelectedIndex;
+                var find = dgProcess.ItemsSource.Cast<MonitoredProcess>().Where(
+                    x => x.My_ProcessName.StartsWith(rbTextFind.Text.Trim())).Single();
+                dgProcess.SelectedIndex = dgProcess.Items.IndexOf(find);
             }
         }
     };
